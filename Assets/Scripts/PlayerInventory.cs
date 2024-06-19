@@ -8,10 +8,10 @@ public class PlayerInventory : MonoBehaviour
     public GameObject bulletPrefab; // Referencia al prefab del proyectil
     public Transform firePoint; // Punto desde donde se dispara el proyectil
     public float bulletSpeed = 10f; // Velocidad del proyectil
-     
+    public float maxBulletDistance = 10f; // Distancia máxima a la que el proyectil puede llegar
+
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Q) && hasAmmo)
         {
             Debug.Log("Player attempting to shoot");
@@ -29,7 +29,10 @@ public class PlayerInventory : MonoBehaviour
         Vector2 shootDirection = firePoint.right; // Dirección en la que el jugador está mirando
         Debug.Log("Shoot direction: " + shootDirection);
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = shootDirection * bulletSpeed; // Ajusta la velocidad del proyectil
+        Bullet bulletScript = bullet.GetComponent<Bullet>(); // Obtener el script del proyectil
+        bulletScript.SetDirection(shootDirection); // Establecer la dirección del proyectil
+        bulletScript.SetMaxDistance(maxBulletDistance); // Establecer la distancia máxima del proyectil
+        bulletScript.SetPlayerTransform(transform); // Pasar la referencia al transform del jugador al proyectil
         hasAmmo = false;
         Debug.Log("Player shot a bullet");
     }
