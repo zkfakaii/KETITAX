@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 2.0f; // speed of movement
-    public float moveDistance = 0.5f; // distance to move each step
-    public float pauseTime = 0.1f; // time to pause between steps
+    public float moveSpeed = 2.0f; // velocidad de movimiento
+    public float moveDistance = 0.5f; // distancia a moverse en cada paso
+    public float pauseTime = 0.1f; // tiempo de pausa entre pasos
 
-    private Vector3 moveDirection; // direction to move
-    private bool isMoving = false; // is the character currently moving?
+    private Vector3 moveDirection; // dirección de movimiento
+    private bool isMoving = false; // ¿está el personaje moviéndose actualmente?
 
     void Update()
     {
-        // get input from the player
+        // obtener la entrada del jugador
         moveDirection = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
@@ -30,9 +30,17 @@ public class PlayerMovement : MonoBehaviour
         {
             moveDirection += Vector3.right;
         }
+
+        // Ajustar la rotación del personaje
+        if (moveDirection != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, moveDirection);
+        }
     }
-    public void FixedUpdate()
+
+    void FixedUpdate()
     {
+        // Mover al personaje
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
     }
 }

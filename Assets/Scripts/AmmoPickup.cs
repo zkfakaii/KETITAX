@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectible : MonoBehaviour
+public class AmmoPickup : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -11,8 +11,9 @@ public class Collectible : MonoBehaviour
             PlayerInventory playerInventory = other.GetComponent<PlayerInventory>();
             if (playerInventory != null)
             {
-                playerInventory.AddFrutoTemporal();
-               
+                playerInventory.hasAmmo = true;
+                Debug.Log("Player picked up ammo");
+                Destroy(gameObject);
             }
         }
     }
