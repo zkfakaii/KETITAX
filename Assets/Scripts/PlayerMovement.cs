@@ -9,6 +9,13 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 moveDirection; // dirección de movimiento
     private bool isMoving = false; // ¿está el personaje moviéndose actualmente?
+    private Vector2 movement;
+    private Rigidbody2D rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void Update()
     {
@@ -42,5 +49,15 @@ public class PlayerMovement : MonoBehaviour
     {
         // Mover al personaje
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
+    }
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<NonTraversable>() != null)
+        {
+            // Implementar la lógica para manejar la colisión con un objeto no atravesable
+            Debug.Log("Colisión con un objeto no atravesable");
+        }
     }
 }
