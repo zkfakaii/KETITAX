@@ -10,10 +10,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection; // Dirección de movimiento
     private bool isMoving = false; // ¿Está el personaje moviéndose actualmente?
     private Rigidbody2D rb;
+    private Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -26,25 +28,37 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 moveDirection = Vector3.up;
+                animator.SetFloat("moveX", 0);
+                animator.SetFloat("moveY", 1);
             }
             else if (Input.GetKey(KeyCode.S))
             {
                 moveDirection = Vector3.down;
+                animator.SetFloat("moveX", 0);
+                animator.SetFloat("moveY", -1);
             }
             else if (Input.GetKey(KeyCode.A))
             {
                 moveDirection = Vector3.left;
+                animator.SetFloat("moveX", -1);
+                animator.SetFloat("moveY", 0);
             }
             else if (Input.GetKey(KeyCode.D))
             {
                 moveDirection = Vector3.right;
+                animator.SetFloat("moveX", 1);
+                animator.SetFloat("moveY", 0);
             }
 
-            // Ajustar la rotación del personaje
+            // Si se ha detectado una dirección de movimiento, comenzar el movimiento
             if (moveDirection != Vector3.zero)
             {
+                animator.SetBool("isMoving", true);
                 StartCoroutine(MoveStep());
-                transform.rotation = Quaternion.LookRotation(Vector3.forward, moveDirection);
+            }
+            else
+            {
+                animator.SetBool("isMoving", false);
             }
         }
     }
