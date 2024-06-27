@@ -53,14 +53,14 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetFloat("lastMoveX", 1);
             }
 
-            if(moveDirection != Vector3.left && moveDirection != Vector3.right)
+            if (moveDirection != Vector3.left && moveDirection != Vector3.right)
             {
                 animator.SetFloat("moveX", 0);
             }
 
 
 
-                willCollide = Physics2D.RaycastAll(this.transform.position, moveDirection, 1, collisionLayer).Length > 0;
+            willCollide = Physics2D.RaycastAll(this.transform.position, moveDirection, 1, collisionLayer).Length > 0;
 
             // Si hay movimiento, iniciar la corrutina para el paso
             if (moveDirection != Vector3.zero && !willCollide)
@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Asegurarse de que la posición es exacta
         rb.MovePosition(targetPosition);
-        
+
         // Pausar antes del siguiente paso
         yield return new WaitForSeconds(pauseTime);
         animator.SetBool("isMoving", false);
@@ -123,11 +123,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (willCollide) {
+        if (willCollide)
+        {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(this.transform.position, this.transform.position + moveDirection);
         }
-        else { 
+        else
+        {
 
             Gizmos.color = Color.white;
             Gizmos.DrawLine(this.transform.position, this.transform.position + moveDirection);
