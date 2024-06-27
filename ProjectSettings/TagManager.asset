@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Bullet
   - wall
+  - Returning
+  - Return
+  - Empujable
   layers:
   - Default
   - TransparentFX

@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
         else
         {
             // Mover el proyectil hacia la posición inicial del jugador a velocidad normal
-            transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, bulletSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, bulletSpeed);
 
             // Si el proyectil ha regresado a la posición inicial, destruirlo
             if (Vector3.Distance(transform.position, playerTransform.position) < 0.01f)
