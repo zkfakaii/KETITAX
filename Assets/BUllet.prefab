@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 3.5
+  playerTransform: {fileID: 0}
 --- !u!58 &6893191710539101653
 CircleCollider2D:
   m_ObjectHideFlags: 0

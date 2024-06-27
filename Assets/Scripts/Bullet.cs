@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     private float maxDistance; // Distancia máxima a la que el proyectil puede llegar
     private Vector3 startPosition; // Posición inicial del proyectil
     private bool returning = false; // Indica si el proyectil está regresando al jugador
-    private Transform playerTransform; // Referencia al transform del jugador
+    public Transform playerTransform; // Referencia al transform del jugador
 
     private Vector3 direction; // Dirección en la que se dispara el proyectil
 
@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviour
         else
         {
             // Mover el proyectil hacia la posición inicial del jugador a velocidad normal
-            transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, bulletSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, bulletSpeed );
 
             // Si el proyectil ha regresado a la posición inicial, destruirlo
             if (Vector3.Distance(transform.position, playerTransform.position) < 0.01f)
