@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
     private bool returning = false; // Indica si el proyectil está regresando al jugador
     private Transform playerTransform; // Referencia al transform del jugador
 
+    private Vector3 direction; // Dirección en la que se dispara el proyectil
+
     void Start()
     {
         startPosition = transform.position;
@@ -20,7 +22,7 @@ public class Bullet : MonoBehaviour
         if (!returning)
         {
             // Mover el proyectil en la dirección del disparo
-            transform.position += transform.right * bulletSpeed * Time.deltaTime;
+            transform.position += direction * bulletSpeed * Time.deltaTime;
 
             // Calcular la distancia recorrida por el proyectil
             float distance = Vector3.Distance(startPosition, transform.position);
@@ -44,9 +46,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void SetDirection(Vector3 direction)
+    public void SetDirection(Vector3 newDirection)
     {
-        transform.right = direction.normalized;
+        direction = newDirection.normalized;
+        transform.right = direction;
     }
 
     public void SetMaxDistance(float distance)
@@ -71,7 +74,7 @@ public class Bullet : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Neutral"))
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Walls"))
         {
             // Si el proyectil colisiona con un objeto en el layer "Neutral", regresa al jugador a velocidad normal
             returning = true;

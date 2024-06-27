@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
+
+    [SerializeField] LayerMask collisionLayer;
+    bool willCollide = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,26 +31,39 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.W))
             {
                 moveDirection = Vector3.up;
-                animator.SetTrigger("WalkUp");
+                animator.SetFloat("moveY", 1);
+                animator.SetFloat("lastMoveY", 1);
             }
             else if (Input.GetKey(KeyCode.S))
             {
                 moveDirection = Vector3.down;
-                animator.SetTrigger("WalkDown");
+                animator.SetFloat("moveY", -1);
+                animator.SetFloat("lastMoveY", -1);
             }
             else if (Input.GetKey(KeyCode.A))
             {
                 moveDirection = Vector3.left;
-                animator.SetTrigger("WalkLeft");
+                animator.SetFloat("moveX", -1);
+                animator.SetFloat("lastMoveX", -1);
             }
             else if (Input.GetKey(KeyCode.D))
             {
                 moveDirection = Vector3.right;
-                animator.SetTrigger("WalkRight");
+                animator.SetFloat("moveX", 1);
+                animator.SetFloat("lastMoveX", 1);
             }
 
+            if(moveDirection != Vector3.left && moveDirection != Vector3.right)
+            {
+                animator.SetFloat("moveX", 0);
+            }
+
+
+
+                willCollide = Physics2D.RaycastAll(this.transform.position, moveDirection, 1, collisionLayer).Length > 0;
+
             // Si hay movimiento, iniciar la corrutina para el paso
-            if (moveDirection != Vector3.zero)
+            if (moveDirection != Vector3.zero && !willCollide)
             {
                 StartCoroutine(MoveStep());
             }
@@ -56,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator MoveStep()
     {
+        animator.SetBool("isMoving", true);
         isMoving = true;
 
         // Calcular la posición objetivo
@@ -71,9 +88,10 @@ public class PlayerMovement : MonoBehaviour
 
         // Asegurarse de que la posición es exacta
         rb.MovePosition(targetPosition);
-
+        
         // Pausar antes del siguiente paso
         yield return new WaitForSeconds(pauseTime);
+        animator.SetBool("isMoving", false);
 
         isMoving = false;
     }
@@ -97,18 +115,22 @@ public class PlayerMovement : MonoBehaviour
         isMoving = false;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Collision detected with: " + collision.gameObject.name);
-        if (collision.gameObject.GetComponent<NonTraversable>() != null)
-        {
-            // Implementar la lógica para manejar la colisión con un objeto no atravesable
-            Debug.Log("Colisión con un objeto no atravesable");
-        }
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Trigger detected with: " + other.gameObject.name);
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (willCollide) {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(this.transform.position, this.transform.position + moveDirection);
+        }
+        else { 
+
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(this.transform.position, this.transform.position + moveDirection);
+        }
     }
 }
