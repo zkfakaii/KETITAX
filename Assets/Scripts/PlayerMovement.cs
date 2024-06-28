@@ -1,77 +1,142 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 2.0f; // Velocidad de movimiento del jugador
-    private Rigidbody2D rb; // Rigidbody del jugador
+    public float moveSpeed = 2.0f; // Velocidad de movimiento
+    public float moveDistance = 0.5f; // Distancia a moverse en cada paso
+    public float pauseTime = 0.1f; // Tiempo de pausa entre pasos
 
-    private GameObject pushableObject; // Objeto empujable actualmente en contacto
+    private Vector3 moveDirection; // Dirección de movimiento
+    private bool isMoving = false; // ¿Está el personaje moviéndose actualmente?
+    private Rigidbody2D rb;
+    private Animator animator;
+
+    [SerializeField] LayerMask collisionLayer;
+    bool willCollide = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        Vector2 moveDirection = Vector2.zero;
+        // Solo aceptar input si no está moviéndose
+        if (!isMoving)
+        {
+            moveDirection = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            moveDirection = Vector2.up;
+            if (Input.GetKey(KeyCode.W))
+            {
+                moveDirection = Vector3.up;
+                
+                animator.SetFloat("moveY", 1);
+                animator.SetFloat("lastMoveY", 1);
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                moveDirection = Vector3.down;
+                
+                animator.SetFloat("moveY", -1);
+                animator.SetFloat("lastMoveY", -1);
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                moveDirection = Vector3.left;
+
+                animator.SetFloat("moveX", -1);
+                animator.SetFloat("lastMoveX", -1);
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                moveDirection = Vector3.right;
+                animator.SetFloat("moveX", 1);
+                animator.SetFloat("lastMoveX", 1);
+            }
+
+            if (moveDirection != Vector3.left && moveDirection != Vector3.right)
+            {
+                animator.SetFloat("moveX", 0);
+            }
+
+            willCollide = Physics2D.RaycastAll(this.transform.position, moveDirection, 1, collisionLayer).Length > 0;
+            
+
+            // Si hay movimiento, iniciar la corrutina para el paso
+            if (moveDirection != Vector3.zero && !willCollide)
+            {
+                StartCoroutine(MoveStep());
+            }
         }
-        else if (Input.GetKey(KeyCode.S))
+    }
+
+    private IEnumerator MoveStep()
+    {
+        Debug.Log("MoveStep coroutine started");
+        animator.SetBool("isMoving", true);
+        isMoving = true;
+
+        // Calcular la posición objetivo
+        Vector3 targetPosition = transform.position + moveDirection * moveDistance;
+        Debug.Log("Target Position: " + targetPosition);
+
+        // Mover hacia la posición objetivo usando MovePosition
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
-            moveDirection = Vector2.down;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            moveDirection = Vector2.left;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            moveDirection = Vector2.right;
+            Vector2 newPosition = Vector2.MoveTowards(rb.position, targetPosition, moveSpeed * Time.deltaTime);
+            rb.MovePosition(newPosition);
+            yield return null;
         }
 
-        // Si hay un objeto empujable y el jugador intenta moverse en la dirección del objeto, empujarlo
-        if (pushableObject != null && moveDirection != Vector2.zero)
+        // Asegurarse de que la posición es exacta
+        rb.MovePosition(targetPosition);
+       
+
+        // Pausar antes del siguiente paso
+        yield return new WaitForSeconds(pauseTime);
+        animator.SetBool("isMoving", false);
+
+        isMoving = false;
+    }
+
+    public IEnumerator MoveAlongRamp(Vector2 direction, float distance)
+    {
+        isMoving = true;
+
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = startPosition + (Vector3)direction.normalized * distance;
+
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
-            PushObject(pushableObject, moveDirection);
+            Vector2 newPosition = Vector2.MoveTowards(rb.position, targetPosition, moveSpeed * Time.deltaTime);
+            rb.MovePosition(newPosition);
+            yield return null;
         }
+
+        rb.MovePosition(targetPosition);
+
+        isMoving = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Empujable"))
-        {
-            pushableObject = other.gameObject;
-        }
+        Debug.Log("Trigger detected with: " + other.gameObject.name);
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    private void OnDrawGizmos()
     {
-        if (other.gameObject == pushableObject)
+        if (willCollide)
         {
-            pushableObject = null;
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(this.transform.position, this.transform.position + moveDirection);
         }
-    }
-
-    void PushObject(GameObject obj, Vector2 direction)
-    {
-        // Asegurarse de que el objeto sea empujable
-        if (!obj.CompareTag("Empujable"))
+        else
         {
-            return;
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(this.transform.position, this.transform.position + moveDirection);
         }
-
-        // Obtener el Rigidbody2D del objeto empujable
-        Rigidbody2D objRb = obj.GetComponent<Rigidbody2D>();
-
-        // Calcular la fuerza de empuje (puedes ajustar esta fuerza según sea necesario)
-        Vector2 pushForce = direction.normalized * moveSpeed * Time.deltaTime;
-
-        // Aplicar la fuerza al objeto empujable
-        objRb.AddForce(pushForce, ForceMode2D.Impulse);
     }
 }
