@@ -9,6 +9,7 @@ TagManager:
   - Returning
   - Return
   - Empujable
+  - Wall
   layers:
   - Default
   - TransparentFX

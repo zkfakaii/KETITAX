@@ -510,9 +510,10 @@ GameObject:
   - component: {fileID: 244735258}
   - component: {fileID: 244735260}
   - component: {fileID: 244735261}
+  - component: {fileID: 244735262}
   m_Layer: 6
   m_Name: Layer1
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1066,6 +1067,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &244735262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244735256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e50ee99a54c45f4fa3e57a54bf16058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tile: {fileID: 244735260}
 --- !u!1 &366177529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1717,6 +1731,7 @@ GameObject:
   - component: {fileID: 1311341761}
   - component: {fileID: 1311341760}
   - component: {fileID: 1311341759}
+  - component: {fileID: 1311341763}
   m_Layer: 0
   m_Name: Square (3)
   m_TagString: Empujable
@@ -1753,7 +1768,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1781,10 +1796,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.01
+  m_Mass: 1
   m_LinearDrag: 15
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1795,7 +1810,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1311341761
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1863,6 +1878,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1311341763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311341758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a3e8f6297a83646bd07aded852f504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushSpeed: 5
+  pushDistance: 1
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  blockingLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1406121306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2417,8 +2452,6 @@ GameObject:
   - component: {fileID: 2073303235}
   - component: {fileID: 2073303236}
   - component: {fileID: 2073303237}
-  - component: {fileID: 2073303238}
-  - component: {fileID: 2073303239}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Player
@@ -2441,9 +2474,11 @@ MonoBehaviour:
   moveSpeed: 50
   moveDistance: 0.5
   pauseTime: 0.1
+  moveDirection: {x: 0, y: 0, z: 0}
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  isBlocked: 0
 --- !u!61 &2073303231
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2641,31 +2676,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2073303238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073303229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e5fc6f34c12db341b0de16b64846576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2073303239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2073303229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a92b2ca03419a54981f2446c65d94e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 2
 --- !u!1 &2092584914
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,13 +8,15 @@ public class PlayerMovement : MonoBehaviour
     public float moveDistance = 0.5f; // Distancia a moverse en cada paso
     public float pauseTime = 0.1f; // Tiempo de pausa entre pasos
 
-    private Vector3 moveDirection; // Dirección de movimiento
+    public Vector3 moveDirection; // Dirección de movimiento
     private bool isMoving = false; // ¿Está el personaje moviéndose actualmente?
     private Rigidbody2D rb;
     private Animator animator;
 
     [SerializeField] LayerMask collisionLayer;
     bool willCollide = false;
+
+    public bool isBlocked = false; // ¿Está el movimiento bloqueado?
 
     void Start()
     {
@@ -24,22 +26,22 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Solo aceptar input si no está moviéndose
-        if (!isMoving)
+        // Solo aceptar input si no está moviéndose y no está bloqueado
+        if (!isMoving && !isBlocked)
         {
             moveDirection = Vector3.zero;
 
             if (Input.GetKey(KeyCode.W))
             {
                 moveDirection = Vector3.up;
-                
+
                 animator.SetFloat("moveY", 1);
                 animator.SetFloat("lastMoveY", 1);
             }
             else if (Input.GetKey(KeyCode.S))
             {
                 moveDirection = Vector3.down;
-                
+
                 animator.SetFloat("moveY", -1);
                 animator.SetFloat("lastMoveY", -1);
             }
@@ -63,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             willCollide = Physics2D.RaycastAll(this.transform.position, moveDirection, 1, collisionLayer).Length > 0;
-            
 
             // Si hay movimiento, iniciar la corrutina para el paso
             if (moveDirection != Vector3.zero && !willCollide)
@@ -93,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Asegurarse de que la posición es exacta
         rb.MovePosition(targetPosition);
-       
+
 
         // Pausar antes del siguiente paso
         yield return new WaitForSeconds(pauseTime);
