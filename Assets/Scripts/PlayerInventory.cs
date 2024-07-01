@@ -15,10 +15,14 @@ public class PlayerInventory : MonoBehaviour
     public float bulletSpeed = 10f; // Velocidad del proyectil
     public float maxBulletDistance = 10f; // Distancia máxima a la que el proyectil puede llegar
 
-    private Vector3 shootDirection; // Dirección en la que el jugador está mirando
+    public Vector3 shootDirection; // Dirección en la que el jugador está mirando
+
+  
+
 
     void Update()
     {
+      
         if (Input.GetKeyDown(KeyCode.Q) && hasAmmo)
         {
             Debug.Log("Player attempting to shoot");
@@ -33,6 +37,7 @@ public class PlayerInventory : MonoBehaviour
 
     void Shoot()
     {
+        Debug.Log("entre");
         Transform selectedFirePoint = null;
 
         // Determinar la dirección en la que el jugador está mirando
@@ -53,8 +58,11 @@ public class PlayerInventory : MonoBehaviour
             selectedFirePoint = firePointDown;
         }
 
+
+        Debug.Log(shootDirection);
         if (selectedFirePoint != null)
         {
+
             GameObject bullet = Instantiate(bulletPrefab, selectedFirePoint.position, Quaternion.identity);
             Bullet bulletScript = bullet.GetComponent<Bullet>(); // Obtener el script del proyectil
             bulletScript.SetDirection(shootDirection); // Establecer la dirección del proyectil

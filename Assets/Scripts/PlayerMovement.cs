@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] LayerMask collisionLayer;
     bool willCollide = false;
+    private PlayerInventory playerInventory;
 
     public bool isBlocked = false; // ¿Está el movimiento bloqueado?
 
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     void Update()
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
                 animator.SetFloat("moveY", 1);
                 animator.SetFloat("lastMoveY", 1);
+                playerInventory.SetShootDirection(Vector3.up);
             }
             else if (Input.GetKey(KeyCode.S))
             {
@@ -44,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
 
                 animator.SetFloat("moveY", -1);
                 animator.SetFloat("lastMoveY", -1);
+                playerInventory.SetShootDirection(Vector3.down);
+
             }
             else if (Input.GetKey(KeyCode.A))
             {
@@ -51,12 +56,16 @@ public class PlayerMovement : MonoBehaviour
 
                 animator.SetFloat("moveX", -1);
                 animator.SetFloat("lastMoveX", -1);
+                playerInventory.SetShootDirection(Vector3.left);
+
             }
             else if (Input.GetKey(KeyCode.D))
             {
                 moveDirection = Vector3.right;
                 animator.SetFloat("moveX", 1);
                 animator.SetFloat("lastMoveX", 1);
+                playerInventory.SetShootDirection(Vector3.right);
+
             }
 
             if (moveDirection != Vector3.left && moveDirection != Vector3.right)
