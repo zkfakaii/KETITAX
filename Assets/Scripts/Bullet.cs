@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float bulletSpeed = 10f; // Velocidad del proyectil
-    private float maxDistance; // Distancia máxima a la que el proyectil puede llegar
+    [SerializeField]private float maxDistance; // Distancia máxima a la que el proyectil puede llegar
     private Vector3 startPosition; // Posición inicial del proyectil
     private bool returning = false; // Indica si el proyectil está regresando al jugador
     public Transform playerTransform; // Referencia al transform del jugador
@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+    
         if (!returning)
         {
             // Mover el proyectil en la dirección del disparo
@@ -26,7 +27,7 @@ public class Bullet : MonoBehaviour
 
             // Calcular la distancia recorrida por el proyectil
             float distance = Vector3.Distance(startPosition, transform.position);
-
+            Debug.Log(distance);
             // Si el proyectil ha alcanzado la distancia máxima, iniciar el retorno
             if (distance >= maxDistance)
             {
@@ -41,6 +42,7 @@ public class Bullet : MonoBehaviour
             // Si el proyectil ha regresado a la posición inicial, destruirlo
             if (Vector3.Distance(transform.position, playerTransform.position) < 0.01f)
             {
+                Debug.Log("A");
                 Destroy(gameObject);
             }
         }
