@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
 
             // Calcular la distancia recorrida por el proyectil
             float distance = Vector3.Distance(startPosition, transform.position);
-            Debug.Log(distance);
+         
             // Si el proyectil ha alcanzado la distancia máxima, iniciar el retorno
             if (distance >= maxDistance)
             {
@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, bulletSpeed );
 
             // Si el proyectil ha regresado a la posición inicial, destruirlo
-            if (Vector3.Distance(transform.position, playerTransform.position) < 0.01f)
+            if (Vector3.Distance(transform.position, playerTransform.position) < 0.05f)
             {
                 Debug.Log("A");
                 Destroy(gameObject);
