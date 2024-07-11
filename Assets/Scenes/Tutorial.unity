@@ -2155,6 +2155,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tile: {fileID: 244735260}
+--- !u!1 &251837013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 251837015}
+  - component: {fileID: 251837014}
+  m_Layer: 0
+  m_Name: levelmanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &251837014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251837013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaf915c4c58b2f24192fbbeddda7d745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &251837015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251837013}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &272267327
 GameObject:
   m_ObjectHideFlags: 0
@@ -4777,6 +4821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a3e8f6297a83646bd07aded852f504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   pushSpeed: 5
   pushDistance: 1
   collisionLayer:
@@ -4785,6 +4830,7 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 64
+  normalSprite: {fileID: 0}
 --- !u!61 &1099646025
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6245,6 +6291,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7532217096993814602, guid: 4e4d6eba0b8b90f4f93eed8a449da62e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0000019073486
+      objectReference: {fileID: 0}
     - target: {fileID: 7891383479186234851, guid: 4e4d6eba0b8b90f4f93eed8a449da62e, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -6454,3 +6504,4 @@ SceneRoots:
   - {fileID: 2073221115241377238}
   - {fileID: 849868669}
   - {fileID: 293735260}
+  - {fileID: 251837015}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4130993892505794045}
   - component: {fileID: 2120171475448343681}
   - component: {fileID: 5847735974302622054}
-  m_Layer: 4
+  m_Layer: 0
   m_Name: stoppedrock
   m_TagString: Empujable
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.85333335, y: 0.85333335}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a3e8f6297a83646bd07aded852f504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   pushSpeed: 5
   pushDistance: 1
   collisionLayer:
@@ -179,3 +180,4 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 64
+  normalSprite: {fileID: 21300000, guid: b627274514fd1d5489dcd3472b9e4a1e, type: 3}

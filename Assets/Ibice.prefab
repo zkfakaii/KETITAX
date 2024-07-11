@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3217177348319257931}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.492, y: 2.494, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.18276215, y: 0.42738497, z: 0.021131335}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -146,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.021815538, y: 0.17341173}
+  m_Offset: {x: -0.6468978, y: 0.0014568567}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -157,7 +157,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.9362912, y: 3.233846}
+  m_Size: {x: 3.9235525, y: 3.7306044}
   m_EdgeRadius: 0
 --- !u!114 &5890102721753552413
 MonoBehaviour:
@@ -179,4 +179,6 @@ MonoBehaviour:
   chargeDirection: {x: 1, y: 0}
   damage: 20
   freezeDuration: 10
+  detectionSprite: {fileID: 502861648, guid: 220a5d37da8a07d4098f2fbe03cfd57b, type: 3}
+  disabledSprite: {fileID: 888188888, guid: 11323e0626f62654da4b660fea816bf2, type: 3}
   isFrozen: 0

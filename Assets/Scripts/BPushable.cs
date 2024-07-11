@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class BPushable : MonoBehaviour
 {
+    public enum PushableState { Normal, Stopped }
+    public PushableState currentState = PushableState.Normal; // Estado actual del objeto
+
     public float pushSpeed = 2.0f; // Velocidad de empuje
     public float pushDistance = 1.0f; // Distancia a empujar en cada paso
     public LayerMask collisionLayer; // Capa de colisión para detectar otros objetos empujables y paredes
     public LayerMask blockingLayer; // Capa de bloqueo para detectar objetos que bloquean el empuje
 
+    public Sprite normalSprite; // Sprite para el estado Normal
+
     private bool isPushed = false; // ¿Está el objeto siendo empujado?
     private Rigidbody2D rb;
     private Vector2 pushDirection;
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        UpdateLayerAndSprite();
     }
 
     void Update()
     {
-        if (!isPushed)
+        if (!isPushed && currentState == PushableState.Normal)
         {
             DetectPush();
         }
@@ -29,12 +37,10 @@ public class BPushable : MonoBehaviour
     void DetectPush()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, pushDirection, 1f);
-   
+
         if (hit.collider != null && hit.collider.CompareTag("Player"))
         {
-            Debug.Log("suicido)");
             Vector2 direction = hit.collider.GetComponent<PlayerMovement>().moveDirection;
-            Debug.Log("yoanmatate");
 
             if (direction != Vector2.zero)
             {
@@ -81,7 +87,32 @@ public class BPushable : MonoBehaviour
 
         isPushed = false;
     }
-    
 
-   
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Bullet") && currentState == PushableState.Stopped)
+        {
+            currentState = PushableState.Normal;
+            UpdateLayerAndSprite();
+            Destroy(other.gameObject); // Destruye el bullet
+        }
+    }
+
+    private void UpdateLayerAndSprite()
+    {
+        gameObject.layer = currentState == PushableState.Stopped ? LayerMask.NameToLayer("Walls") : LayerMask.NameToLayer("Default");
+        if (currentState == PushableState.Normal && normalSprite != null)
+        {
+            spriteRenderer.sprite = normalSprite;
+        }
+    }
+
+    void OnValidate()
+    {
+        // Asegúrate de que el estado y el sprite se actualicen en el editor cuando se modifique
+        if (!Application.isPlaying)
+        {
+            UpdateLayerAndSprite();
+        }
+    }
 }

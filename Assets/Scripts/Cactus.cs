@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Cactus : MonoBehaviour
-
 {
     public float stateDuration = 1.0f; // Duración de cada estado
     public int damage = 20; // Daño que inflige al jugador
@@ -11,6 +10,7 @@ public class Cactus : MonoBehaviour
     private enum State { Cross, InterX, X, InterCross }
     private State currentState;
     private float stateTimer;
+    private Animator animator;
 
     private Collider2D[] colliders;
 
@@ -19,6 +19,8 @@ public class Cactus : MonoBehaviour
         currentState = State.Cross;
         stateTimer = stateDuration;
         colliders = GetComponentsInChildren<Collider2D>();
+        animator = GetComponent<Animator>();
+        SetAnimationState(); // Inicializar la animación
     }
 
     void Update()
@@ -53,6 +55,27 @@ public class Cactus : MonoBehaviour
             case State.InterCross:
                 currentState = State.Cross;
                 SetCollidersActive(true);
+                break;
+        }
+
+        SetAnimationState();
+    }
+
+    void SetAnimationState()
+    {
+        switch (currentState)
+        {
+            case State.Cross:
+                animator.Play("CactusCross");
+                break;
+            case State.InterX:
+                animator.Play("CactusInterX");
+                break;
+            case State.X:
+                animator.Play("CactusX");
+                break;
+            case State.InterCross:
+                animator.Play("CactusInterCross");
                 break;
         }
     }

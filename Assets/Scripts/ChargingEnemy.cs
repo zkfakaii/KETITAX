@@ -12,16 +12,22 @@ public class ChargingEnemy : MonoBehaviour
     public Vector2 chargeDirection = Vector2.right; // Dirección de embestida
     public int damage = 20; // Daño que inflige al jugador
     public float freezeDuration = 2.0f; // Duración del estado congelado
+    public Sprite detectionSprite; // Sprite cuando la detección está activa
+    public Sprite disabledSprite; // Sprite cuando la detección está desactivada
 
     private Vector3 initialPosition; // Posición inicial del enemigo
     private bool isCharging = false; // ¿Está el enemigo embistiendo?
     private bool isReturning = false; // ¿Está el enemigo regresando a su posición inicial?
-   [SerializeField] private bool isFrozen = false; // ¿Está el enemigo congelado?
+    [SerializeField] private bool isFrozen = false; // ¿Está el enemigo congelado?
+    private bool detectionEnabled = true; // ¿Está la detección habilitada?
     private Vector3 chargeTarget; // Objetivo de la embestida
+    private SpriteRenderer spriteRenderer; // Referencia al SpriteRenderer
 
     void Start()
     {
         initialPosition = transform.position;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        UpdateSprite(); // Actualizar el sprite al inicio
     }
 
     void Update()
@@ -36,7 +42,7 @@ public class ChargingEnemy : MonoBehaviour
             {
                 ReturnToInitialPosition();
             }
-            else
+            else if (detectionEnabled)
             {
                 DetectPlayer();
             }
@@ -54,8 +60,6 @@ public class ChargingEnemy : MonoBehaviour
                 chargeTarget = transform.position + (Vector3)(chargeDirection.normalized * chargeDistance);
                 break;
             }
-                         
-
         }
     }
 
@@ -77,25 +81,42 @@ public class ChargingEnemy : MonoBehaviour
         if (Vector3.Distance(transform.position, initialPosition) < 0.01f)
         {
             isReturning = false;
+            detectionEnabled = true; // Reactivar la detección cuando regrese a la posición inicial
+            UpdateSprite(); // Actualizar el sprite cuando la detección se reactive
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-     
-
-        if (isCharging && collision.collider.CompareTag("Player"))
+        if (isCharging)
         {
-            PlayerHealth playerHealth = collision.collider.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            if (collision.collider.CompareTag("Player"))
             {
-                playerHealth.TakeDamage(damage);
+                PlayerHealth playerHealth = collision.collider.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(damage);
+                }
+            }
+            else if (collision.collider.CompareTag("Empujable"))
+            {
+                Destroy(collision.collider.gameObject); // Destruye el objeto "Empujable"
             }
         }
-      
     }
-    public void Freze() 
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Bullet"))
         {
+            detectionEnabled = false; // Desactivar la detección
+            UpdateSprite(); // Actualizar el sprite cuando la detección se desactive
+            Destroy(other.gameObject); // Destruir el bullet
+        }
+    }
+
+    public void Freeze()
+    {
         StartCoroutine(FreezeEnemy());
     }
 
@@ -106,9 +127,24 @@ public class ChargingEnemy : MonoBehaviour
         isFrozen = false;
     }
 
+    void UpdateSprite()
+    {
+        if (detectionEnabled)
+        {
+            spriteRenderer.sprite = detectionSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = disabledSprite;
+        }
+    }
+
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector2(detectionWidth, detectionHeight));
+        if (detectionEnabled)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(transform.position, new Vector2(detectionWidth, detectionHeight));
+        }
     }
 }
