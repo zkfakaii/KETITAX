@@ -5,7 +5,7 @@ using UnityEngine;
 public class Hoyo : MonoBehaviour
 {
     // Referencia al GameObject que representa el bache tapado
-    public GameObject bacheTapado;
+   
 
    
     

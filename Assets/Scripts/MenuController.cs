@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 public class MenuController : MonoBehaviour
 {
     public void LoadNextScene(string nextScene)
@@ -13,7 +15,10 @@ public class MenuController : MonoBehaviour
         public void QuitGame()
         {
             Application.Quit();
-            EditorApplication.isPaused = !EditorApplication.isPaused;
 
-        }
+#if UNITY_EDITOR
+        EditorApplication.isPaused = !EditorApplication.isPaused;
+#endif
+
+    }
 }

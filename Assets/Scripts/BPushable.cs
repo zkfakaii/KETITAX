@@ -28,11 +28,13 @@ public class BPushable : MonoBehaviour
 
     void DetectPush()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, pushDirection, 1f, collisionLayer);
-
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, pushDirection, 1f);
+   
         if (hit.collider != null && hit.collider.CompareTag("Player"))
         {
+            Debug.Log("suicido)");
             Vector2 direction = hit.collider.GetComponent<PlayerMovement>().moveDirection;
+            Debug.Log("yoanmatate");
 
             if (direction != Vector2.zero)
             {
