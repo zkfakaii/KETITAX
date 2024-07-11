@@ -37,13 +37,15 @@ public class Bullet : MonoBehaviour
         else
         {
             // Mover el proyectil hacia la posición inicial del jugador a velocidad normal
-            transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, bulletSpeed );
+            transform.position -= direction * bulletSpeed * Time.deltaTime;
+
+            // Debug.Log("A" + Vector3.Distance(transform.position, startPosition));
 
             // Si el proyectil ha regresado a la posición inicial, destruirlo
-            if (Vector3.Distance(transform.position, playerTransform.position) < 0.05f)
+            if (Vector3.Distance(transform.position, startPosition) < 0.05f)
             {
-                Debug.Log("A");
-                Destroy(gameObject);
+                
+                // Destroy(gameObject);
             }
         }
     }
@@ -78,6 +80,7 @@ public class Bullet : MonoBehaviour
                 playerInventory.hasAmmo = true;
                 Debug.Log("Bullet returned, ammo available again");
             }
+            Debug.Log("Will Be destroyed");
             Destroy(gameObject);
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Walls"))
