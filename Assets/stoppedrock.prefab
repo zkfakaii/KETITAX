@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4130993892505794045}
   - component: {fileID: 2120171475448343681}
   - component: {fileID: 5847735974302622054}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: stoppedrock
   m_TagString: Empujable
   m_Icon: {fileID: 0}
@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 1591293907132258554}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.03, y: -5.56, z: 0.021131335}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.502, y: -1.495, z: 0.021131335}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -146,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0018327236, y: 0.0011052787}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -157,7 +157,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0125225, y: 1.0130455}
   m_EdgeRadius: 0
 --- !u!114 &5847735974302622054
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a3e8f6297a83646bd07aded852f504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  currentState: 1
   pushSpeed: 5
   pushDistance: 1
   collisionLayer:

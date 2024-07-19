@@ -259,6 +259,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bettle (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6529102588254009918, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2974,75 +2978,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
---- !u!1001 &1769326880
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.502
-      objectReference: {fileID: 0}
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.495
-      objectReference: {fileID: 0}
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.021131335
-      objectReference: {fileID: 0}
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1954633973436125397, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2230814299364593507, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4fcdff0be7af3d1449bf8b21a58b5a52, type: 3}
-    - target: {fileID: 3817691081402091511, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: currentState
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6529102588254009918, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_Name
-      value: Bettle
-      objectReference: {fileID: 0}
-    - target: {fileID: 6529102588254009918, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 33c6be09af6caa1419190f6b833a1408, type: 3}
 --- !u!1 &1781568855
 GameObject:
   m_ObjectHideFlags: 0
@@ -3611,6 +3546,63 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!1001 &1859220842756876786
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1591293907132258554, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_Name
+      value: Bettle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.502
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.495
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.021131335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428786345521333194, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec91d747f3a27af42b888912216aebfd, type: 3}
 --- !u!1001 &3844629594884557357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3677,7 +3669,7 @@ SceneRoots:
   - {fileID: 705971821}
   - {fileID: 1264735381}
   - {fileID: 779343857}
-  - {fileID: 1769326880}
+  - {fileID: 1859220842756876786}
   - {fileID: 117926257}
   - {fileID: 1766004963}
   - {fileID: 1302897784}

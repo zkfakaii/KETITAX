@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2904137604061280423}
   - component: {fileID: 3000358094950395274}
   - component: {fileID: 3817691081402091511}
-  m_Layer: 4
+  m_Layer: 0
   m_Name: Bettle
   m_TagString: Empujable
   m_Icon: {fileID: 0}
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a3e8f6297a83646bd07aded852f504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   pushSpeed: 5
   pushDistance: 1
   collisionLayer:
@@ -179,3 +180,4 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 64
+  normalSprite: {fileID: 0}

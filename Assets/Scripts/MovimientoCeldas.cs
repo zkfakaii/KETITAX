@@ -30,9 +30,6 @@ public class MovimientoCeldas : MonoBehaviour
         {
             Mover(Vector3.up);
             playerInventory._direccion = Vector3.up;
-
-
-
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
