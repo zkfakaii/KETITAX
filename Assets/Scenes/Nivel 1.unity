@@ -3787,6 +3787,7 @@ GameObject:
   - component: {fileID: 1825332558}
   - component: {fileID: 1825332557}
   - component: {fileID: 1825332556}
+  - component: {fileID: 1825332564}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Player
@@ -3879,7 +3880,7 @@ MonoBehaviour:
   firePointDown: {fileID: 1978418330}
   bulletSpeed: 10
   maxBulletDistance: 4
-  shootDirection: {x: 0, y: 0, z: 0}
+  _direccion: {x: 0, y: 0, z: 0}
 --- !u!114 &1825332560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3887,7 +3888,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825332554}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb183c8b32d181a4aae12ce729a90ba4, type: 3}
   m_Name: 
@@ -4024,6 +4025,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1825332564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825332554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a733bffa1f9578e4a9cf9eb4fa85a6fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpTime: 0.2
+  layerObstaculos:
+    serializedVersion: 2
+    m_Bits: 64
+  moveDirection: {x: 0, y: 0, z: 0}
+  moveDirectionPoint: {fileID: 1825332559}
 --- !u!1 &1841571402
 GameObject:
   m_ObjectHideFlags: 0

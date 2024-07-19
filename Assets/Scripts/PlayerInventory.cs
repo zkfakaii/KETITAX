@@ -15,7 +15,7 @@ public class PlayerInventory : MonoBehaviour
     public float bulletSpeed = 10f; // Velocidad del proyectil
     public float maxBulletDistance = 10f; // Distancia máxima a la que el proyectil puede llegar
 
-    public Vector3 shootDirection; // Dirección en la que el jugador está mirando
+    public Vector3 _direccion;// Dirección en la que el jugador está mirando
 
   
 
@@ -41,31 +41,31 @@ public class PlayerInventory : MonoBehaviour
         Transform selectedFirePoint = null;
 
         // Determinar la dirección en la que el jugador está mirando
-        if (shootDirection == Vector3.left)
+        if (_direccion== Vector3.up )
         {
             selectedFirePoint = firePointLeft;
         }
-        else if (shootDirection == Vector3.right)
+        else if (_direccion == Vector3.right)
         {
             selectedFirePoint = firePointRight;
         }
-        else if (shootDirection == Vector3.up)
+        else if  (_direccion == Vector3.up)
         {
             selectedFirePoint = firePointUp;
         }
-        else if (shootDirection == Vector3.down)
+        else if (-_direccion == Vector3.down)
         {
             selectedFirePoint = firePointDown;
         }
 
 
-        Debug.Log(shootDirection);
+        
         if (selectedFirePoint != null)
         {
 
             GameObject bullet = Instantiate(bulletPrefab, selectedFirePoint.position, Quaternion.identity);
             Bullet bulletScript = bullet.GetComponent<Bullet>(); // Obtener el script del proyectil
-            bulletScript.SetDirection(shootDirection); // Establecer la dirección del proyectil
+            bulletScript.SetDirection(_direccion); // Establecer la dirección del proyectil
             bulletScript.SetMaxDistance(maxBulletDistance); // Establecer la distancia máxima del proyectil
             bulletScript.SetPlayerTransform(transform); // Pasar la referencia al transform del jugador al proyectil
             hasAmmo = false;
@@ -75,6 +75,6 @@ public class PlayerInventory : MonoBehaviour
 
     public void SetShootDirection(Vector3 direction)
     {
-        shootDirection = direction;
+        _direccion = direction;
     }
 }
