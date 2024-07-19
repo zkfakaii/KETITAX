@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3123667446364233468}
   - component: {fileID: 4117374212554594789}
   m_Layer: 8
-  m_Name: Cactus
+  m_Name: Cactus Cruz
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,8 +128,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f6cb84948e7164fade182cc1f71223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateDuration: 3
-  damage: 20
+  crossDuration: 2
+  xDuration: 0
+  idleDuration: 4
 --- !u!61 &9183899359289110182
 BoxCollider2D:
   m_ObjectHideFlags: 0
