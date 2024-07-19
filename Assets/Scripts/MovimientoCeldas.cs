@@ -4,87 +4,89 @@ using UnityEngine;
 
 public class MovimientoCeldas : MonoBehaviour
 {
-
-    public float lerpTime;
-    bool moviendose, rotando;
+    public float lerpTime = 0.5f; // Tiempo de interpolación para el movimiento
     public LayerMask layerObstaculos;
-    public Vector3 moveDirection; // Dirección de movimiento
-    private bool isMoving = false; // ¿Está el personaje moviéndose actualmente?
-    private Rigidbody2D rb;
-    private Animator animator;
-    private PlayerInventory playerInventory;
+    public Animator animator;
+    public PlayerInventory playerInventory;
 
-    public PlayerInventory moveDirectionPoint;
+    private bool moviendose = false;
+    private bool rotando = false;
+    private Vector3 moveDirection; // Dirección de movimiento
+    private Rigidbody2D rb;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = this.GetComponent<Animator>();
         playerInventory = GetComponent<PlayerInventory>();
     }
 
     void Update()
     {
-        // Solo aceptar input si no está moviéndose y no está bloqueado
-        
-      
-    
+        if (moviendose || rotando) return;
+
+        // Input para moverse en las direcciones cardinal
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Mover(Vector3.up);
+            playerInventory._direccion = Vector3.up;
 
 
-    
-        
-       
-        { 
-        
-             if(Input.GetKeyDown(KeyCode.W))
-            {
-             Mover(Vector3.up);
-                moveDirectionPoint._direccion = Vector3.up;
-
-            }
-             if (Input.GetKeyDown(KeyCode.A))
-            {
-             Mover(Vector3.left);
-                moveDirectionPoint._direccion = Vector3.left;
-            }
-             if (Input.GetKeyDown(KeyCode.S))
-            {
-             Mover(Vector3.down);
-                moveDirectionPoint._direccion = Vector3.down;
-            }
-             if (Input.GetKeyDown(KeyCode.D))
-            {
-             Mover(Vector3.right);
-                moveDirectionPoint._direccion = Vector3.right;
-            }
 
         }
-
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            Mover(Vector3.left);
+            playerInventory._direccion = Vector3.left;
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            Mover(Vector3.down);
+            playerInventory._direccion = Vector3.down;
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            Mover(Vector3.right);
+            playerInventory._direccion = Vector3.right;
+        }
+/*
+        if (Input.GetKeyUp(KeyCode.W))
+         {
+            animator.SetBool("isMoving", false);
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            animator.SetBool("isMoving", false);
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            animator.SetBool("isMoving", false);
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                animator.SetBool("isMoving", false);
+            }
+        }*/
     }
 
     void Mover(Vector3 _direccion)
-    {   
-        if(!rotando)
-        {
-            StartCoroutine(Rotar(_direccion));
-        }
+    {
+        moveDirection = _direccion;
 
-        if (moviendose) return;
-        // chequear si hay obstáculos
-
+        // Comprobar obstáculos en la dirección de movimiento
         RaycastHit2D hit2d = Physics2D.Raycast(transform.position, _direccion, 1, layerObstaculos);
-        if(hit2d.collider!= null)
+        if (hit2d.collider != null)
         {
-            // chequear si hay obstáculos rompibles o empujables
-            if(hit2d.transform.GetComponent<Empujable>())
+            // Comprobar si es un objeto empujable
+            if (hit2d.transform.GetComponent<Empujable>())
             {
                 Empujable empujable = hit2d.transform.GetComponent<Empujable>();
-                if(empujable.PuedeMoverse(_direccion, lerpTime))
+                if (empujable.PuedeMoverse(_direccion, lerpTime))
                 {
                     StartCoroutine(Moverse(_direccion));
                 }
                 else
                 {
-                    print("hay pared");
+                    Debug.Log("Hay una pared u obstáculo que impide el movimiento.");
                 }
             }
         }
@@ -92,45 +94,42 @@ public class MovimientoCeldas : MonoBehaviour
         {
             StartCoroutine(Moverse(_direccion));
         }
-
-
     }
 
     IEnumerator Moverse(Vector3 _direccion)
     {
+        animator.SetBool("isMoving", true);
         moviendose = true;
+
         Vector3 desde = transform.position;
         Vector3 hacia = desde + _direccion;
         float t = 0;
-
-        while(t < lerpTime)
-        {
-            t += Time.deltaTime;
-            float porcentaje = t / lerpTime;
-            transform.position = Vector3.Lerp(desde, hacia, porcentaje);
-            yield return null;
-        }
-
-        moviendose = false;
-    }
-
-    IEnumerator Rotar(Vector3 _direccion)
-    {
-        rotando = true;
-
-        float t = 0;
-
-        Vector3 startDirection = transform.up;
-        Vector3 haciaDirection = _direccion;
 
         while (t < lerpTime)
         {
             t += Time.deltaTime;
             float porcentaje = t / lerpTime;
-            transform.up = Vector3.Lerp(startDirection, haciaDirection, porcentaje);
+
+            // Mover gradualmente
+            transform.position = Vector3.Lerp(desde, hacia, porcentaje);
+
             yield return null;
         }
 
-        rotando = false;
+        // Ajustar posición exacta y finalizar movimiento
+        transform.position = hacia;
+        animator.SetBool("isMoving", false);
+        moviendose = false;
+
+        // Actualizar animaciones después del movimiento
+        ActualizarAnimaciones(moveDirection);
+    }
+
+    void ActualizarAnimaciones(Vector3 direccion)
+    {
+        // Ajustar animaciones basadas en la dirección de movimiento
+        animator.SetBool("isMoving", true);
+        animator.SetFloat("moveX", direccion.x);
+        animator.SetFloat("moveY", direccion.y);
     }
 }

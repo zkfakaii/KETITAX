@@ -41,7 +41,7 @@ public class PlayerInventory : MonoBehaviour
         Transform selectedFirePoint = null;
 
         // Determinar la dirección en la que el jugador está mirando
-        if (_direccion== Vector3.up )
+        if (_direccion== Vector3.left)
         {
             selectedFirePoint = firePointLeft;
         }
@@ -53,7 +53,7 @@ public class PlayerInventory : MonoBehaviour
         {
             selectedFirePoint = firePointUp;
         }
-        else if (-_direccion == Vector3.down)
+        else if (_direccion == Vector3.down)
         {
             selectedFirePoint = firePointDown;
         }

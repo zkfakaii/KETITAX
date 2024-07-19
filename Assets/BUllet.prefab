@@ -100,9 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104cc5f1f12d4ac4cbacb2ea8a932978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 3.5
-  maxDistance: 0
-  playerTransform: {fileID: 0}
+  bulletSpeed: 5
+  maxDistance: 1
+  playerTransform: {fileID: 9053930392513777215}
 --- !u!58 &6893191710539101653
 CircleCollider2D:
   m_ObjectHideFlags: 0
